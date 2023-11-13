@@ -6,6 +6,7 @@ import matplotlib.font_manager as fm
 from PIL import Image
 import random
 from wordcloud import WordCloud
+import json
 
 image = Image.open('header4.jpg')
 st.image(image)
