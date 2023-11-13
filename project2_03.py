@@ -6,14 +6,13 @@ import matplotlib.font_manager as fm
 from PIL import Image
 import random
 from wordcloud import WordCloud
-import koreanize_matplotlib
 
 image = Image.open('header4.jpg')
 st.image(image)
 
 # 글자체 특징
-path = os.getcwd() + '/NanumGothic.ttf'
-fontprop = fm.FontProperties(fname = path)
+path = os.getcwd() + '\\NanumGothic.ttf'
+fontprop = fm.FontProperties(fname = path).get_name()
 
 # Streamlit 앱의 제목 설정
 st.title(':bar_chart: 프로젝트2: 자유낙하 운동 분석(에너지)')
@@ -23,7 +22,7 @@ st.subheader("")
 st.subheader('1. 자유낙하 운동의 역학적 에너지 분석 실험 과정 안내 :clipboard:', divider='rainbow')
 st.markdown('##### **다음 과정에 따라 실험해 봅시다.**')
 st.markdown(" 1. 플레이스토어(또는 앱스토어)에서 '**phyphox**' 앱을 다운받는다.")
-st.markdown(" 2. 앱을 실행하고 '**Raw Sensors**'의 '**Acceleration with g**' 를 실행한다.")
+st.markdown(" 2. 앱을 실행하고 '**Raw Sensors**'의 '**Acceleration without g**' 를 실행한다.")
 st.markdown(" 3. 재생 버튼을 누르고 스마트폰을 **자유 낙하**시킨다.")
 st.markdown(" 4. 바닥에 닿으면 일시 정지 버튼을 눌러 실행을 종료한다.")
 st.markdown(" 5. 오른쪽 위의 '**점 세 개**'-'**Export Data**'-'**CSV(Comma, decimal point)**'를 누르고 OK를 눌러 CSV 파일을 폰으로 받는다.")
@@ -52,8 +51,9 @@ if uploaded_file is not None:
     filtered_df = df[selected_columns]
 
     # 물체의 질량 입력 받기(스마트폰 무게 고려해서 최대 최소 설정)
-    mass_g = st.number_input("물체의 질량(g)을 입력하세요", min_value=None, max_value=1000, step=1)
+    mass_g = st.number_input("물체의 질량(g)을 입력하세요", min_value=100, max_value=1000, step=1)
     mass = mass_g/1000
+
 
     # 데이터 전처리: 가속도 값이 9.0 이상인 구간 중 최소 0.1초 이상 지속되는 구간 선택
     continuous_duration = 0.1  # 최소 지속 시간 (초)
@@ -104,17 +104,17 @@ if uploaded_file is not None:
         color = ['r', 'b', 'g']
 
     # 그래프 그리기
-    plt.rc('font', family='Malgun Gothic')
+    plt.rc('font', family = fontprop)
     fig, ax = plt.subplots(figsize=(10, 6))
     if isinstance(color, list):
-        ax.plot(plot_df['Time (s)'], plot_df['위치에너지'], marker='.', markersize=1, color=color[0], label='위치에너지', fontproperties = fontprop)
-        ax.plot(plot_df['Time (s)'], plot_df['운동에너지'], marker='.', markersize=1, color=color[1], label='운동에너지', fontproperties = fontprop)
-        ax.plot(plot_df['Time (s)'], plot_df['역학적에너지'], marker='.', markersize=1, color=color[2], label='역학적에너지', fontproperties = fontprop)
+        ax.plot(plot_df['Time (s)'], plot_df['위치에너지'], marker='.', markersize=1, color=color[0], label='위치에너지')
+        ax.plot(plot_df['Time (s)'], plot_df['운동에너지'], marker='.', markersize=1, color=color[1], label='운동에너지')
+        ax.plot(plot_df['Time (s)'], plot_df['역학적에너지'], marker='.', markersize=1, color=color[2], label='역학적에너지')
     else:
         ax.plot(plot_df['Time (s)'], plot_df[ylabel], marker='o', color=color, label=ylabel)
-    ax.set_xlabel('시간 (s)', fontproperties = fontprop)
-    ax.set_ylabel(ylabel, fontproperties = fontprop)
-    ax.set_title(f'시간에 따른 물체의 {ylabel} 그래프', fontproperties = fontprop)
+    ax.set_xlabel('시간 (s)')
+    ax.set_ylabel(ylabel)
+    ax.set_title(f'시간에 따른 물체의 {ylabel} 그래프')
     ax.legend()
     st.pyplot(fig)
    
@@ -147,8 +147,8 @@ with st.form(key = 'form'):
     submit = st.form_submit_button(label = '그린 그래프 제출하기', use_container_width = True)
    
     if submit:
-        plt.rc("font", family="Malgun Gothic")
-        plt.plot(plot_df['Time (s)'], plot_df['역학적에너지'], marker='.', markersize=1, color=color[2], label='역학적에너지', fontproperties = fontprop)
+        plt.rc("font", family = fontprop)
+        plt.plot(plot_df['Time (s)'], plot_df['역학적에너지'], marker='.', markersize=1, color=color[2], label='역학적에너지')
         plt.title('자유낙하 시간에 따른 역학적에너지 그래프')
         plt.savefig('img2' + '/' + group_name + '조 ' + '시간-역학적에너지 그래프', dpi = 300)
 
@@ -178,7 +178,7 @@ for i in my_range:
 
 st.divider()
 
-# # 이전 4번 구역, 내용 삭제
+# # 4번 구역
 # st.subheader('4. 에너지 계산해보기 :pencil2:', divider='rainbow')
 # st.caption(r'중력가속도 값은 :blue[9.8 $\mathrm{m}/{s^2}$] 입니다.')
 
