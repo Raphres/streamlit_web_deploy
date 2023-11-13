@@ -12,7 +12,7 @@ st.image(image)
 
 # 글자체 특징
 path = os.getcwd() + '/NanumGothic.ttf'
-fontprop = fm.FontProperties(fname = path).get_name()
+fontprop = fm.FontProperties(fname = path)
 
 
 # Streamlit 앱의 제목 설정
@@ -109,11 +109,11 @@ if uploaded_file is not None:
     # plt.rc('font', family=fontprop)
     fig, ax = plt.subplots(figsize=(10, 6))
     if isinstance(color, list):
-        plt.plot(plot_df['Time (s)'], plot_df['위치에너지'], marker='.', markersize=1, color=color[0], label='위치에너지', fontproperties = fontprop)
-        plt.plot(plot_df['Time (s)'], plot_df['운동에너지'], marker='.', markersize=1, color=color[1], label='운동에너지', fontproperties = fontprop)
-        plt.plot(plot_df['Time (s)'], plot_df['역학적에너지'], marker='.', markersize=1, color=color[2], label='역학적에너지', fontproperties = fontprop)
+        plt.plot(plot_df['Time (s)'], plot_df['위치에너지'], marker='.', markersize=1, color=color[0], label='Ep')
+        plt.plot(plot_df['Time (s)'], plot_df['운동에너지'], marker='.', markersize=1, color=color[1], label='Ek')
+        plt.plot(plot_df['Time (s)'], plot_df['역학적에너지'], marker='.', markersize=1, color=color[2], label='Etot')
     else:
-        plt.plot(plot_df['Time (s)'], plot_df[ylabel], marker='o', color=color, label=ylabel, fontproperties = fontprop)
+        plt.plot(plot_df['Time (s)'], plot_df[ylabel], marker='o', color=color, label=ylabel)
     plt.xlabel('시간 (s)', fontproperties = fontprop)
     plt.ylabel(ylabel, fontproperties = fontprop)
     plt.title(f'시간에 따른 물체의 {ylabel} 그래프', fontproperties = fontprop)
@@ -150,7 +150,7 @@ with st.form(key = 'form'):
    
     if submit:
         # plt.rc("font", family = fontprop)
-        plt.plot(plot_df['Time (s)'], plot_df['역학적에너지'], marker='.', markersize=1, color=color[2], label='역학적에너지', fontproperties = fontprop)
+        plt.plot(plot_df['Time (s)'], plot_df['역학적에너지'], marker='.', markersize=1, color=color[2], label='Etot')
         plt.title('자유낙하 시간에 따른 역학적에너지 그래프', fontproperties = fontprop)
         plt.savefig('img2' + '/' + group_name + '조 ' + '시간-역학적에너지 그래프', dpi = 300)
 
