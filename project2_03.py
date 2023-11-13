@@ -11,8 +11,10 @@ image = Image.open('header4.jpg')
 st.image(image)
 
 # 글자체 특징
-path = os.getcwd() + '\NanumGothic.ttf'
-fontprop = fm.FontProperties(fname = path).get_name()
+# path = os.getcwd() + '\NanumGothic.ttf'
+# fontprop = fm.FontProperties(fname = path).get_name()
+path = os.path.abspath(r'NanumGothic.ttf')
+fontprop = fm.FontProperties(fname=path)
 
 # Streamlit 앱의 제목 설정
 st.title(':bar_chart: 프로젝트2: 자유낙하 운동 분석(에너지)')
