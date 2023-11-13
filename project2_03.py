@@ -105,30 +105,18 @@ if uploaded_file is not None:
         color = ['r', 'b', 'g']
 
     # 그래프 그리기
-    # plt.rc('font', family = fontprop)
-    # fig, ax = plt.subplots(figsize=(10, 6))
-    # if isinstance(color, list):
-    #     ax.plot(plot_df['Time (s)'], plot_df['위치에너지'], marker='.', markersize=1, color=color[0], label='위치에너지')
-    #     ax.plot(plot_df['Time (s)'], plot_df['운동에너지'], marker='.', markersize=1, color=color[1], label='운동에너지')
-    #     ax.plot(plot_df['Time (s)'], plot_df['역학적에너지'], marker='.', markersize=1, color=color[2], label='역학적에너지')
-    # else:
-    #     ax.plot(plot_df['Time (s)'], plot_df[ylabel], marker='o', color=color, label=ylabel)
-    # ax.set_xlabel('시간 (s)')
-    # ax.set_ylabel(ylabel)
-    # ax.set_title(f'시간에 따른 물체의 {ylabel} 그래프')
-    # ax.legend()
-    # st.pyplot(fig)
-    plt.rc('font', family=fontprop)
+
+    # plt.rc('font', family=fontprop)
     fig, ax = plt.subplots(figsize=(10, 6))
     if isinstance(color, list):
-        plt.plot(plot_df['Time (s)'], plot_df['위치에너지'], marker='.', markersize=1, color=color[0], label='위치에너지')
-        plt.plot(plot_df['Time (s)'], plot_df['운동에너지'], marker='.', markersize=1, color=color[1], label='운동에너지')
-        plt.plot(plot_df['Time (s)'], plot_df['역학적에너지'], marker='.', markersize=1, color=color[2], label='역학적에너지')
+        plt.plot(plot_df['Time (s)'], plot_df['위치에너지'], marker='.', markersize=1, color=color[0], label='위치에너지', fontproperties = fontprop)
+        plt.plot(plot_df['Time (s)'], plot_df['운동에너지'], marker='.', markersize=1, color=color[1], label='운동에너지', fontproperties = fontprop)
+        plt.plot(plot_df['Time (s)'], plot_df['역학적에너지'], marker='.', markersize=1, color=color[2], label='역학적에너지', fontproperties = fontprop)
     else:
-        plt.plot(plot_df['Time (s)'], plot_df[ylabel], marker='o', color=color, label=ylabel)
-    plt.xlabel('시간 (s)')
-    plt.ylabel(ylabel)
-    plt.title(f'시간에 따른 물체의 {ylabel} 그래프')
+        plt.plot(plot_df['Time (s)'], plot_df[ylabel], marker='o', color=color, label=ylabel, fontproperties = fontprop)
+    plt.xlabel('시간 (s)', fontproperties = fontprop)
+    plt.ylabel(ylabel, fontproperties = fontprop)
+    plt.title(f'시간에 따른 물체의 {ylabel} 그래프', fontproperties = fontprop)
     plt.legend()
     st.pyplot(fig)
    
@@ -161,9 +149,9 @@ with st.form(key = 'form'):
     submit = st.form_submit_button(label = '그린 그래프 제출하기', use_container_width = True)
    
     if submit:
-        plt.rc("font", family = fontprop)
-        plt.plot(plot_df['Time (s)'], plot_df['역학적에너지'], marker='.', markersize=1, color=color[2], label='역학적에너지')
-        plt.title('자유낙하 시간에 따른 역학적에너지 그래프')
+        # plt.rc("font", family = fontprop)
+        plt.plot(plot_df['Time (s)'], plot_df['역학적에너지'], marker='.', markersize=1, color=color[2], label='역학적에너지', fontproperties = fontprop)
+        plt.title('자유낙하 시간에 따른 역학적에너지 그래프', fontproperties = fontprop)
         plt.savefig('img2' + '/' + group_name + '조 ' + '시간-역학적에너지 그래프', dpi = 300)
 
         if not name:
