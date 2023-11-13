@@ -105,18 +105,31 @@ if uploaded_file is not None:
         color = ['r', 'b', 'g']
 
     # 그래프 그리기
-    plt.rc('font', family = fontprop)
+    # plt.rc('font', family = fontprop)
+    # fig, ax = plt.subplots(figsize=(10, 6))
+    # if isinstance(color, list):
+    #     ax.plot(plot_df['Time (s)'], plot_df['위치에너지'], marker='.', markersize=1, color=color[0], label='위치에너지')
+    #     ax.plot(plot_df['Time (s)'], plot_df['운동에너지'], marker='.', markersize=1, color=color[1], label='운동에너지')
+    #     ax.plot(plot_df['Time (s)'], plot_df['역학적에너지'], marker='.', markersize=1, color=color[2], label='역학적에너지')
+    # else:
+    #     ax.plot(plot_df['Time (s)'], plot_df[ylabel], marker='o', color=color, label=ylabel)
+    # ax.set_xlabel('시간 (s)')
+    # ax.set_ylabel(ylabel)
+    # ax.set_title(f'시간에 따른 물체의 {ylabel} 그래프')
+    # ax.legend()
+    # st.pyplot(fig)
+    plt.rc('font', family=fontprop)
     fig, ax = plt.subplots(figsize=(10, 6))
     if isinstance(color, list):
-        ax.plot(plot_df['Time (s)'], plot_df['위치에너지'], marker='.', markersize=1, color=color[0], label='위치에너지')
-        ax.plot(plot_df['Time (s)'], plot_df['운동에너지'], marker='.', markersize=1, color=color[1], label='운동에너지')
-        ax.plot(plot_df['Time (s)'], plot_df['역학적에너지'], marker='.', markersize=1, color=color[2], label='역학적에너지')
+        plt.plot(plot_df['Time (s)'], plot_df['위치에너지'], marker='.', markersize=1, color=color[0], label='위치에너지')
+        plt.plot(plot_df['Time (s)'], plot_df['운동에너지'], marker='.', markersize=1, color=color[1], label='운동에너지')
+        plt.plot(plot_df['Time (s)'], plot_df['역학적에너지'], marker='.', markersize=1, color=color[2], label='역학적에너지')
     else:
-        ax.plot(plot_df['Time (s)'], plot_df[ylabel], marker='o', color=color, label=ylabel)
-    ax.set_xlabel('시간 (s)')
-    ax.set_ylabel(ylabel)
-    ax.set_title(f'시간에 따른 물체의 {ylabel} 그래프')
-    ax.legend()
+        plt.plot(plot_df['Time (s)'], plot_df[ylabel], marker='o', color=color, label=ylabel)
+    plt.xlabel('시간 (s)')
+    plt.ylabel(ylabel)
+    plt.title(f'시간에 따른 물체의 {ylabel} 그래프')
+    plt.legend()
     st.pyplot(fig)
    
     # 정답 계산 함수
