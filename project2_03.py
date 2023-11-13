@@ -2,6 +2,7 @@ import os
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib.font_manager as fm
 from PIL import Image
 import random
 from wordcloud import WordCloud
@@ -9,6 +10,10 @@ import koreanize_matplotlib
 
 image = Image.open('header4.jpg')
 st.image(image)
+
+# 글자체 특징
+path = os.getcwd() + '/NanumGothic.ttf'
+fontprop = fm.FontProperties(fname = path)
 
 # Streamlit 앱의 제목 설정
 st.title(':bar_chart: 프로젝트2: 자유낙하 운동 분석(에너지)')
@@ -107,8 +112,8 @@ if uploaded_file is not None:
         ax.plot(plot_df['Time (s)'], plot_df['역학적에너지'], marker='.', markersize=1, color=color[2], label='역학적에너지')
     else:
         ax.plot(plot_df['Time (s)'], plot_df[ylabel], marker='o', color=color, label=ylabel)
-    ax.set_xlabel('시간 (s)')
-    ax.set_ylabel(ylabel)
+    ax.set_xlabel('시간 (s)', fontproperties = fontprop)
+    ax.set_ylabel(ylabel, fontproperties = fontprop)
     ax.set_title(f'시간에 따른 물체의 {ylabel} 그래프')
     ax.legend()
     st.pyplot(fig)
@@ -143,7 +148,7 @@ with st.form(key = 'form'):
    
     if submit:
         plt.rc("font", family="Malgun Gothic")
-        plt.plot(plot_df['Time (s)'], plot_df['역학적에너지'], marker='.', markersize=1, color=color[2], label='역학적에너지')
+        plt.plot(plot_df['Time (s)'], plot_df['역학적에너지'], marker='.', markersize=1, color=color[2], label='역학적에너지', fontproperties = fontprop)
         plt.title('자유낙하 시간에 따른 역학적에너지 그래프')
         plt.savefig('img2' + '/' + group_name + '조 ' + '시간-역학적에너지 그래프', dpi = 300)
 
