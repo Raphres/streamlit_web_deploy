@@ -11,7 +11,7 @@ image = Image.open('header4.jpg')
 st.image(image)
 
 # 글자체 특징
-path = os.getcwd() + '\\NanumGothic.ttf'
+path = os.getcwd() + '/NanumGothic.ttf'
 fontprop = fm.FontProperties(fname = path).get_name()
 
 
