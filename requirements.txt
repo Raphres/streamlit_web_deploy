@@ -6,3 +6,4 @@ matplotlib
 pandas
 numpy
 koreanize_matplotlib
+json
