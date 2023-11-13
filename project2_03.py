@@ -258,31 +258,36 @@ st.subheader('[더 생각해보기] 오차는 무엇 때문일까? :upside_down_
 # 라디오 버튼으로 선택할 수 있는 옵션들
 options = ['질량', '공기저항', '높이', '기타']
 
+# 클릭 수 파일이 존재하면 불러오고, 그렇지 않으면 초기화
+if os.path.exists('click_counts.json'):
+    with open('click_counts.json', 'r') as f:
+        click_counts = json.load(f)
+else:
+    click_counts = {option: 0 for option in options}
+
 # 사용자가 라디오 버튼으로 선택
 choice = st.radio("**실제 실험 결과를 보면 '역학적 에너지가 일정하게 보존된다'는 결론에서 벗어나는 오차가 나타나요. 오차의 이유로 생각되는 요인을 선택하세요. 우리 반 친구들의 의견은 어떨까요? 단어가 크면 응답횟수가 많다는 뜻이에요!**", options)
 
-# 선택 사항의 클릭 수 추적
-if 'click_count' not in st.session_state:
-    st.session_state['click_count'] = {option: 0 for option in options}
+# 제출 버튼
+submit = st.button('제출')
 
-st.session_state['click_count'][choice] += 1
+# 제출 버튼을 클릭했을 때만 선택된 옵션의 클릭 수 증가
+if submit:
+    click_counts[choice] += 1
 
-# 선택된 응답을 클릭 수만큼 반복하여 워드 클라우드에 전달
-if 'text' not in st.session_state:
-    st.session_state.text = ''
+    # 클릭 수를 파일에 저장
+    with open('click_counts.json', 'w') as f:
+        json.dump(click_counts, f)
 
-st.session_state['text'] += ' '.join([choice] * st.session_state['click_count'][choice]) + ' '
+    # 워드 클라우드 생성을 위한 데이터 준비
+    text = ' '.join([option for option, count in click_counts.items() for _ in range(count)])
 
-# 워드 클라우드 생성
-wordcloud = WordCloud(width=800, height=400, font_path= 'NanumGothic.ttf', background_color='white').generate(st.session_state['text'])
-
-plt.figure(figsize=(8, 4))
-plt.imshow(wordcloud, interpolation='bilinear')
-plt.axis("off")
-
-# 워드 클라우드 이미지를 스트림릿에 표시
-st.pyplot(plt)
-st. divider()
+    # 워드 클라우드 생성
+    wordcloud = WordCloud(font_path="NanumGothic.ttf", width=800, height=400, background_color='white').generate(text)
+    plt.figure(figsize=(8, 4))
+    plt.imshow(wordcloud, interpolation='bilinear')
+    plt.axis("off")
+    st.pyplot(plt)
 
 st.header(':white_check_mark: Mission Clear!!! :tada:')
 st. markdown('##### 자유 낙하 운동의 가속도부터 역학적 에너지 보존까지 완벽하게 분석했군요! 수고했어요 :clap:')
