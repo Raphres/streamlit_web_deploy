@@ -107,14 +107,14 @@ if uploaded_file is not None:
     plt.rc('font', family='Malgun Gothic')
     fig, ax = plt.subplots(figsize=(10, 6))
     if isinstance(color, list):
-        ax.plot(plot_df['Time (s)'], plot_df['위치에너지'], marker='.', markersize=1, color=color[0], label='위치에너지')
-        ax.plot(plot_df['Time (s)'], plot_df['운동에너지'], marker='.', markersize=1, color=color[1], label='운동에너지')
-        ax.plot(plot_df['Time (s)'], plot_df['역학적에너지'], marker='.', markersize=1, color=color[2], label='역학적에너지')
+        ax.plot(plot_df['Time (s)'], plot_df['위치에너지'], marker='.', markersize=1, color=color[0], label='위치에너지', fontproperties = fontprop)
+        ax.plot(plot_df['Time (s)'], plot_df['운동에너지'], marker='.', markersize=1, color=color[1], label='운동에너지', fontproperties = fontprop)
+        ax.plot(plot_df['Time (s)'], plot_df['역학적에너지'], marker='.', markersize=1, color=color[2], label='역학적에너지', fontproperties = fontprop)
     else:
         ax.plot(plot_df['Time (s)'], plot_df[ylabel], marker='o', color=color, label=ylabel)
     ax.set_xlabel('시간 (s)', fontproperties = fontprop)
     ax.set_ylabel(ylabel, fontproperties = fontprop)
-    ax.set_title(f'시간에 따른 물체의 {ylabel} 그래프')
+    ax.set_title(f'시간에 따른 물체의 {ylabel} 그래프', fontproperties = fontprop)
     ax.legend()
     st.pyplot(fig)
    
